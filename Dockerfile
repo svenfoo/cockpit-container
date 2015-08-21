@@ -1,25 +1,25 @@
-FROM fedora:21
+FROM fedora:22
 MAINTAINER "Stef Walter" <stefw@redhat.com>
 
 RUN yum -y update && yum install -y sed && yum clean all
 
-# A repo where we can find recent Cockpit builds for Fedora
-ADD cockpit-preview.repo /etc/yum.repos.d/
+ENV VERSION 0.72
+ENV RELEASE 1
 
-# If there are rpm files in the current directory we'll install those,
-# otherwise use cockpit-preview repo. The Dockerfile is a hack around
-# Dockerfile lack of support for branches
-ADD cockpit-ws-*.rpm Dockerfile /tmp/
-
-# Again see above ... we do our branching in shell script
-RUN cd /tmp && \
-  ( ls *.rpm > /dev/null 2> /dev/null && yum -y install *.rpm || \
-        yum -y --enablerepo=cockpit-preview install cockpit-ws ) && \
-  yum clean all && rm -f /tmp/*.rpm
+# Get this specific version of cockpit-ws
+RUN yum install -y https://kojipkgs.fedoraproject.org/packages/cockpit/$VERSION/$RELEASE.fc22/x86_64/cockpit-ws-$VERSION-$RELEASE.fc22.x86_64.rpm
 
 # And the stuff that starts the container
-ADD atomic-* /container/
-RUN chmod -v +x /container/atomic-* && rm -f /etc/os-release /usr/lib/os-release && ln -sv /host/etc/os-release /etc/os-release && ln -sv /host/usr/lib/os-release /usr/lib/os-release && ln -sv /host/proc/1 /container/target-namespace
+RUN mkdir -p /container && ln -s /host/proc/1 /container/target-namespace
+ADD atomic-install /container/atomic-install
+ADD atomic-uninstall /container/atomic-uninstall
+ADD atomic-run /container/atomic-run
+RUN chmod -v +x /container/atomic-install
+RUN chmod -v +x /container/atomic-uninstall
+RUN chmod -v +x /container/atomic-run
+
+# Make the container think it's the host OS version
+RUN rm -f /etc/os-release /usr/lib/os-release && ln -sv /host/etc/os-release /etc/os-release && ln -sv /host/usr/lib/os-release /usr/lib/os-release
 
 LABEL INSTALL /usr/bin/docker run -ti --rm --privileged -v /:/host IMAGE /container/atomic-install
 LABEL UNINSTALL /usr/bin/docker run -ti --rm --privileged -v /:/host IMAGE /cockpit/atomic-uninstall
