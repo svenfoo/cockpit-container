@@ -1,13 +1,18 @@
 # Cockpit Web Service Container
 
-Some operating systems (like Atomic Host) contain parts of Cockpit
-but not the Web Service.
+Atomic contains the Cockpit bridge process, but not the Web Service. This means you can add an Atomic host to another Cockpit dashboard, but not connect to it directly.
 
-This privileged container is useful to run the Cockpit Web Service
-and use Cockpit on the host.
+If you want to connect directly to your Atomic Host with your web browser, use this privileged container.
 
-     $ sudo atomic run cockpit/ws
+Run it like so:
 
-### Development
+    # atomic run cockpit/ws
 
- * [Cockpit Code](https://github.com/cockpit-project/cockpit)
+And then use your web browser to log into port 9090 on your host IP address as usual.
+
+Important: This expects that Atomic (the host operating system) has the cockpit-bridge executable and cockpit-shell package.
+
+## More Info
+
+ * [Cockpit Project](https://cockpit-project.org)
+ * [Cockpit Development](https://github.com/cockpit-project/cockpit)
