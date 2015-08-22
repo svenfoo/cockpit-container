@@ -14,7 +14,7 @@ ADD cockpit-ws-*.rpm Dockerfile /tmp/
 # Again see above ... we do our branching in shell script
 RUN cd /tmp && \
   ( ls *.rpm > /dev/null 2> /dev/null && yum -y install *.rpm || \
-        yum -y --enablerepo=cockpit-preview install cockpit-ws ) && \
+        yum -y --enablerepo=cockpit-preview install https://copr-be.cloud.fedoraproject.org/results/sgallagh/cockpit-preview/fedora-22-x86_64/cockpit-0.63-1.fc23/cockpit-ws-0.63-1.fc22.x86_64.rpm ) && \
   yum clean all && rm -f /tmp/*.rpm
 
 # And the stuff that starts the container
