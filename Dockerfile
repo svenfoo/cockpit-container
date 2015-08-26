@@ -5,7 +5,7 @@ MAINTAINER "Stef Walter" <stefw@redhat.com>
 RUN dnf install -y yum
 RUN yum-deprecated -y update && yum-deprecated install -y sed
 
-ENV VERSION 0.72
+ENV VERSION 0.73
 ENV RELEASE 1
 
 # Get this specific version of cockpit-ws
