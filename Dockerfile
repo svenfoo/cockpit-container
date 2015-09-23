@@ -12,7 +12,7 @@ ENV RELEASE 1
 RUN yum-deprecated install -y https://kojipkgs.fedoraproject.org/packages/cockpit/$VERSION/$RELEASE.fc22/x86_64/cockpit-ws-$VERSION-$RELEASE.fc22.x86_64.rpm && yum-deprecated clean all
 
 # And the stuff that starts the container
-RUN mkdir -p /container && ln -s /host/proc/1 /container/target-namespace
+RUN mkdir -p /container
 ADD atomic-install /container/atomic-install
 ADD atomic-uninstall /container/atomic-uninstall
 ADD atomic-run /container/atomic-run
