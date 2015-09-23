@@ -10,7 +10,7 @@ ENV RELEASE 1
 RUN dnf -y install sed https://kojipkgs.fedoraproject.org/packages/cockpit/$VERSION/$RELEASE.fc23/x86_64/cockpit-ws-$VERSION-$RELEASE.fc23.x86_64.rpm && dnf clean all
 
 # And the stuff that starts the container
-RUN mkdir -p /container
+RUN mkdir -p /container && ln -s /host/proc/1 /container/target-namespace
 ADD atomic-install /container/atomic-install
 ADD atomic-uninstall /container/atomic-uninstall
 ADD atomic-run /container/atomic-run
