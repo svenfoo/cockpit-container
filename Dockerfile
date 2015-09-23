@@ -1,15 +1,13 @@
 FROM fedora:22
 MAINTAINER "Stef Walter" <stefw@redhat.com>
 
-# HACK: DNF is unreliable and disconnects from mirrors all the time
-RUN dnf install -y yum
-RUN yum-deprecated -y update && yum-deprecated install -y sed
+RUN dnf -y update
 
 ENV VERSION 0.77
 ENV RELEASE 1
 
 # Get this specific version of cockpit-ws
-RUN yum-deprecated install -y https://kojipkgs.fedoraproject.org/packages/cockpit/$VERSION/$RELEASE.fc22/x86_64/cockpit-ws-$VERSION-$RELEASE.fc22.x86_64.rpm && yum-deprecated clean all
+RUN dnf -y install sed https://kojipkgs.fedoraproject.org/packages/cockpit/$VERSION/$RELEASE.fc23/x86_64/cockpit-ws-$VERSION-$RELEASE.fc23.x86_64.rpm && dnf clean all
 
 # And the stuff that starts the container
 RUN mkdir -p /container
