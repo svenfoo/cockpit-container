@@ -3,7 +3,7 @@ MAINTAINER "Stef Walter" <stefw@redhat.com>
 
 RUN dnf -y update
 
-ENV VERSION 0.92
+ENV VERSION 0.93
 ENV RELEASE 1
 
 # Get this specific version of cockpit-ws
