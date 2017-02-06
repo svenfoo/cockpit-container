@@ -2,7 +2,7 @@ FROM fedora:24
 MAINTAINER "Stef Walter" <stefw@redhat.com>
 
 ARG RELEASE=1
-ARG VERSION=130
+ARG VERSION=131
 ARG COCKPIT_RPM_URL=https://kojipkgs.fedoraproject.org/packages/cockpit
 ARG USE_REPO
 
