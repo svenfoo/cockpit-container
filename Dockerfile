@@ -1,7 +1,7 @@
 FROM fedora:26
 MAINTAINER "Stef Walter" <stefw@redhat.com>
 
-ARG VERSION=166
+ARG VERSION=167
 
 ADD . /container
 
