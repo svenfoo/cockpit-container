@@ -1,7 +1,7 @@
 FROM fedora:27
 LABEL maintainer="cockpit-devel@lists.fedorahosted.org"
 
-ARG VERSION=176
+ARG VERSION=177
 
 ADD . /container
 
