@@ -17,6 +17,10 @@ if [ -z "$INSTALLER" ]; then
     INSTALLER="dnf"
 fi
 
+"$INSTALLER" install -y 'dnf-command(config-manager)'
+"$INSTALLER" config-manager --set-enabled updates-testing
+"$INSTALLER" config-manager --set-enabled updates-testing-modular
+
 "$INSTALLER" -y update
 "$INSTALLER" install -y sed
 
